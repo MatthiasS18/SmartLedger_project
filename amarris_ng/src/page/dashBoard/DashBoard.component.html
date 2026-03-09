@@ -1,0 +1,46 @@
+<div class="min-h-screen bg-[#0f0f13] text-[#e8e8f0] px-6 py-10 flex justify-center">
+  <div class="w-full max-w-3xl space-y-8">
+
+    <header class="flex items-center justify-between">
+      <div>
+        <span class="text-xs uppercase tracking-widest text-amber-400">Finance · {{ currentYear }}</span>
+        <h1 class="text-3xl font-bold text-white">SmartLedger</h1>
+      </div>
+    </header>
+
+    <hr class="border-white/10" />
+
+    <section class="grid grid-cols-3 gap-4">
+            <div
+            *ngFor="let stat of stats"
+            class="bg-[#1c1c27] border rounded-2xl p-5 transition cursor-default hover:z-10 relative"
+            [ngClass]="[stat.borderClass, stat.shadowClass]"
+            >
+        <p class="text-xs uppercase tracking-widest text-gray-500 mb-2">{{ stat.label }}</p>
+        <p class="text-3xl font-bold" [ngClass]="stat.valueClass">{{ stat.value }}</p>
+        <p class="text-xs text-gray-500 mt-2">
+          <span [ngClass]="stat.trendUp ? 'text-emerald-400' : 'text-rose-400'">{{ stat.trend }}</span>
+          {{ stat.trendLabel }}
+        </p>
+      </div>
+    </section>
+
+    <section class="grid grid-cols-3 gap-4">
+      <a
+        *ngFor="let action of actions"
+        [routerLink]="action.route"
+        class="flex items-center gap-3 bg-[#1c1c27] border border-white/10 rounded-2xl px-4 py-4
+               hover:border-amber-400/60 hover:-translate-y-0.5 transition no-underline"
+      >
+        <div class="w-10 h-10 rounded-xl bg-amber-400/10 border border-amber-400/20 flex items-center justify-center text-lg">
+          {{ action.icon }}
+        </div>
+        <div>
+          <p class="text-sm font-medium text-white">{{ action.title }}</p>
+          <p class="text-xs text-gray-500">{{ action.subtitle }}</p>
+        </div>
+        <span class="ml-auto text-gray-500">›</span>
+      </a>
+    </section>
+  </div>
+</div>
