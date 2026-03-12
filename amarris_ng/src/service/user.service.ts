@@ -4,7 +4,7 @@ import { UserDto } from '../page/users/User.component';
 
 @Injectable({ providedIn: 'root' }) // this annotation allows to use this class "UserService" in the "root"
 export class UserService {
-  private apiUrl = 'http://localhost:8080/api/users';
+  private apiUrl = '/api/users';
 
   constructor(private http: HttpClient) {}
 
@@ -22,5 +22,9 @@ export class UserService {
 
   searchUsers(term: string) {
     return this.http.get<UserDto[]>(`${this.apiUrl}/search?term=${term}`);
+  }
+
+  deleteUser(id: string) {
+    return this.http.delete(`${this.apiUrl}/${id}`);
   }
 }

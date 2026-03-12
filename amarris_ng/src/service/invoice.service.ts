@@ -4,7 +4,7 @@ import { InvoiceDto } from '../page/invoices/Invoices.component';
 
 @Injectable({ providedIn: 'root' }) // this annotation allows to use this class "InvoiceService" in the "root"
 export class InvoiceService {
-  private apiUrl = 'http://localhost:8080/api/invoices';
+  private apiUrl = '/api/invoices';
 
   constructor(private http: HttpClient) {}
 
@@ -22,5 +22,9 @@ export class InvoiceService {
 
   searchInvoices(term: string) {
     return this.http.get<InvoiceDto[]>(`${this.apiUrl}/search?term=${term}`);
+  }
+
+  deleteInvoice(id: string) {
+    return this.http.delete(`${this.apiUrl}/${id}`);
   }
 }

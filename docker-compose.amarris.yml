@@ -26,12 +26,8 @@ services:
     environment:
       - discovery.type=single-node
       - xpack.security.enabled=false
-      - ES_JAVA_OPTS=-Xms512m -Xmx512m
     ports:
       - "9200:9200"
-      - "9300:9300"
-    volumes:
-      - elasticsearch_data:/usr/share/elasticsearch/data
 
   kibana:
     image: kibana:8.12.0
@@ -40,8 +36,27 @@ services:
       - "5601:5601"
     environment:
       - ELASTICSEARCH_HOSTS=http://elasticsearch:9200
+
+  smartledger:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: smartledger
+    ports:
+      - "8086:8080"
+    environment:
+      - SPRING_DATA_MONGODB_URI=mongodb://admin:admin@mongo:27017/smartledger?authSource=admin
+      - SPRING_ELASTICSEARCH_URIS=http://elasticsearch:9200
     depends_on:
+      - mongo
       - elasticsearch
 
-volumes:
-  elasticsearch_data:
+  frontend:
+    build:
+      context: ./amarris_ng 
+      dockerfile: Dockerfile.angular
+    container_name: smartledger-frontend
+    ports:
+      - "4200:80"
+    depends_on:
+      - smartledger

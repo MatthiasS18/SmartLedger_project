@@ -74,6 +74,12 @@ export class Expense {
       });
     }
   }
-  
+
+  deleteExpense(id: string) {
+    this.expenseService.deleteExpense(id).subscribe(() => {
+      this.expenses = this.expenses.filter(exp => exp.id !== id);
+      this.loadExpenses();
+    });
+  }
 }
 

@@ -79,4 +79,12 @@ export class Invoice {
       });
     }
   }
+
+  deleteInvoice(id: string) {
+    this.invoiceService.deleteInvoice(id).subscribe(() => {
+      this.invoices = this.invoices.filter(inv => inv.id !== id);
+      this.loadInvoices();
+    });
+  }
+
 }

@@ -73,4 +73,11 @@ onSearch(term: string) {
   }
 }
 
+  deleteUser(id: string) {
+    this.userService.deleteUser(id).subscribe(() => {
+      this.users = this.users.filter(inv => inv.id !== id);
+      this.loadUsers();
+    });
+  }
+
 }

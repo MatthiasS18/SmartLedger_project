@@ -4,7 +4,7 @@ import { ExpenseDto } from '../page/expenses/Expenses.component';
 
 @Injectable({ providedIn: 'root' }) // this annotation allows to use this class "ExpenseService" in the "root"
 export class ExpenseService {
-  private apiUrl = 'http://localhost:8080/api/expenses';
+  private apiUrl = '/api/expenses';
 
   constructor(private http: HttpClient) {}
 
@@ -23,4 +23,9 @@ export class ExpenseService {
   searchExpenses(term: string) {
     return this.http.get<ExpenseDto[]>(`${this.apiUrl}/search?term=${term}`);
   }
+
+  deleteExpense(id: string) {
+    return this.http.delete(`${this.apiUrl}/${id}`);
+  }
+
 }
